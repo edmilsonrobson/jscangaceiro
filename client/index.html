@@ -60,11 +60,11 @@
     </table>
 <script src="app/domain/trade/Trade.js" charset="utf-8"></script>
 <script type="text/javascript">
-  var n1 = new Trade(new Date(), 10, 27.33);
-  var anotherDay = new Date();
-  anotherDay.setDate(11);
-  n1.date = anotherDay;    
-  console.dir(n1);
+  let today = new Date();
+  let trade = new Trade(today, 10, 76.33);
+  console.log(trade.date);
+  today.setDate(11);
+  console.log(trade.date);
 </script>
 </body>
 </html>

@@ -1,9 +1,8 @@
 class Trade {
 
-  constructor(date, quantity, value) {
-    this._date = new Date(date.getTime());
-    this._quantity = quantity;
-    this._value = value;
+  constructor(_date, _quantity, _value) {
+    Object.assign(this, { _quantity, _value });
+    this._date = new Date(_date.getTime());    
 
     Object.freeze(this);
   }
