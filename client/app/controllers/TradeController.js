@@ -1,12 +1,15 @@
 class TradeController {
 
   constructor() {
-    let $ = document.querySelector.bind(document);
+    const $ = document.querySelector.bind(document);
     this._inputDate = $('#date');
     this._inputQuantity = $('#quantity');
     this._inputValue = $('#value');
-    this._tradeList = new TradeList();
+    this._tradeList = new TradeList( (model) => {
+      this._tradeListView.update(model);
+    });
     this._tradeListView = new TradeListView('#trade-list');
+
 
     this._tradeListView.update(this._tradeList);
 
@@ -23,7 +26,12 @@ class TradeController {
     this._message.text = 'Trade added successfully';
 
     this._clearFields();
-    this._tradeListView.update(this._tradeList);
+    this._messageView.update(this._message);
+  }
+
+  erase() {
+    this._tradeList.empty();
+    this._message = 'Trade list erased successfully';
     this._messageView.update(this._message);
   }
 
