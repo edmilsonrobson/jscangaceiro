@@ -1,13 +1,4 @@
-class TradeListView {
-
-  constructor(selector) {
-    this._element = document.querySelector(selector);
-  }
-
-  update(model) {
-    this._element.innerHTML = this.template(model);
-  }
-
+class TradeListView  extends View {
   template(model) {
     return `
     <table class="table table-hover table-bordered">
@@ -22,7 +13,7 @@ class TradeListView {
 
         <tbody>
           ${model.toArray().map(trade =>
-            return `
+            `
             <tr>
               <td>${DateConverter.dateToString(trade.date)}</td>
               <td>${trade.quantity}</td>
@@ -40,7 +31,6 @@ class TradeListView {
           </tr>
         </tfoot>
     </table>
-    `
+    `;
   }
-
 }

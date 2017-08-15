@@ -9,22 +9,28 @@ class TradeController {
     this._tradeListView = new TradeListView('#trade-list');
 
     this._tradeListView.update(this._tradeList);
+
+    this._message = new Message();
+    this._messageView = new MessageView('#message-view');
+    this._messageView.update(this._message);
   }
 
   add(event) {
     event.preventDefault();
 
     this._tradeList.add(this._createTrade());
-    console.log(this._tradeList);
+
+    this._message.text = 'Trade added successfully';
 
     this._clearFields();
     this._tradeListView.update(this._tradeList);
+    this._messageView.update(this._message);
   }
 
   _createTrade() {
-    let trade = new Trade(
+    const trade = new Trade(
       DateConverter.stringToDate(this._inputDate.value),
-      parseInt(this._inputDate.value),
+      parseInt(this._inputQuantity.value),
       parseInt(this._inputValue.value),
     );
 
@@ -38,5 +44,4 @@ class TradeController {
 
     this._inputDate.focus();
   }
-
 }

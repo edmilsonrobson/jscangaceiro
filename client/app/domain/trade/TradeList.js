@@ -15,7 +15,6 @@ class TradeList {
   totalVolume() {
     let total = 0;
 
-    return this._trades.reduce((total, trade) => return total + trade.volume, 0);    
+    return this._trades.reduce((total, trade) => total + trade.volume, 0);
   }
-
 }
