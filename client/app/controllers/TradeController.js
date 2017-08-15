@@ -6,6 +6,9 @@ class TradeController {
     this._inputQuantity = $('#quantity');
     this._inputValue = $('#value');
     this._tradeList = new TradeList();
+    this._tradeListView = new TradeListView('#trade-list');
+
+    this._tradeListView.update(this._tradeList);
   }
 
   add(event) {
@@ -15,9 +18,10 @@ class TradeController {
     console.log(this._tradeList);
 
     this._clearFields();
+    this._tradeListView.update(this._tradeList);
   }
 
-  _createTrade() {    
+  _createTrade() {
     let trade = new Trade(
       DateConverter.stringToDate(this._inputDate.value),
       parseInt(this._inputDate.value),

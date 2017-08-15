@@ -1,23 +1,23 @@
-var fields = [
+const fields = [
   document.querySelector('#date'),
   document.querySelector('#quantity'),
   document.querySelector('#value'),
 ];
 
-var tbody = document.querySelector('table tbody');
-document.querySelector('.form').addEventListener('submit', function(event){
+const tbody = document.querySelector('table tbody');
+document.querySelector('.form').addEventListener('submit', (event) => {
   event.preventDefault();
 
-  var tr = document.createElement('tr');
+  const tr = document.createElement('tr');
 
-  fields.forEach(function(field){
-    var td = document.createElement('td');
+  fields.forEach((field) => {
+    const td = document.createElement('td');
     td.textContent = field.value;
     tr.appendChild(td);
   });
 
   // Also creates a volume column, which is "quantity" times "value"
-  var tdVolume = document.createElement('td');
+  const tdVolume = document.createElement('td');
   tdVolume.textContent = fields[1].value * fields[2].value;
 
   tr.appendChild(tdVolume);
