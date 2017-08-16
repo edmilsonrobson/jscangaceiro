@@ -1,14 +1,10 @@
 class TradeList {
-
-  constructor(trap) {
-    this._trades = [];
-    this._trap = trap;
+  constructor() {
+    this._trades = [];    
   }
 
   add(trade) {
     this._trades.push(trade);
-
-    this._trap(this);
   }
 
   toArray() {
@@ -23,7 +19,5 @@ class TradeList {
 
   empty() {
     this._trades.length = 0;
-
-    this._trap(this);
   }
 }
