@@ -6,30 +6,17 @@ class TradeController {
     this._inputQuantity = $('#quantity');
     this._inputValue = $('#value');
 
-    const self = this;
+    this._tradeList = new Bind(
+      new TradeList(),
+      new TradeListView('#trade-list'),
+      'add', 'empty',
+    );
 
-    this._tradeList = new Proxy(new TradeList(), {
-      get(target, prop, receiver) {
-        if (typeof (target[prop]) === typeof (Function) && ['add', 'empty'].includes(prop)) {
-          return function () {
-            console.log(`"${prop}" triggered trap`);
-            target[prop].apply(target, arguments);
-            self._tradeListView.update(target);
-          };
-        }
-
-        return target[prop];
-      },
-    });
-
-    this._tradeListView = new TradeListView('#trade-list');
-
-
-    this._tradeListView.update(this._tradeList);
-
-    this._message = new Message();
-    this._messageView = new MessageView('#message-view');
-    this._messageView.update(this._message);
+    this._message = new Bind(
+      new Message(),
+      new MessageView('#message-view'),
+      'text',
+    );
   }
 
   add(event) {
@@ -40,20 +27,18 @@ class TradeController {
     this._message.text = 'Trade added successfully';
 
     this._clearFields();
-    this._messageView.update(this._message);
   }
 
   erase() {
     this._tradeList.empty();
     this._message = 'Trade list erased successfully';
-    this._messageView.update(this._message);
   }
 
   _createTrade() {
     const trade = new Trade(
       DateConverter.stringToDate(this._inputDate.value),
-      parseInt(this._inputQuantity.value),
-      parseInt(this._inputValue.value),
+      parseInt(this._inputQuantity.value, 10),
+      parseInt(this._inputValue.value, 10),
     );
 
     return trade;
