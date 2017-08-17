@@ -1,6 +1,6 @@
 class Bind {
   constructor(model, view, ...props) {
-    const proxy = ProxyFactor.create(model, props, model => {
+    const proxy = ProxyFactory.create(model, props, model => {
       view.update(model)
     });
 
