@@ -8,9 +8,9 @@ class DateConverter {
   }
 
   static stringToDate(string) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(string)) {
-      throw new Error('String given is not in the format yyyy-mm-dd');
+    if (!/\d{4}\/\d{2}\/\d{2}/.test(string)) {
+      throw new InvalidDateException();
     }
-    return new Date(...string.split('-').map((item, index) => (item - index) % 2));
+    return new Date(...string.split('/').reverse().map((item, index) => (item - index) % 2));
   }
 }

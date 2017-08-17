@@ -20,13 +20,20 @@ class TradeController {
   }
 
   add(event) {
-    event.preventDefault();
+    try {
+      event.preventDefault();
+      this._tradeList.add(this._createTrade());
+      this._message.text = 'Trade added successfully';
+      this._clearFields();
+    } catch (err) {
+      console.log(err);
 
-    this._tradeList.add(this._createTrade());
-
-    this._message.text = 'Trade added successfully';
-
-    this._clearFields();
+      if (err instanceof InvalidDateException) {
+        this._message.text = err.message;
+      } else {
+        this._message.text = 'An unexpected error happened.';
+      }
+    }
   }
 
   erase() {
