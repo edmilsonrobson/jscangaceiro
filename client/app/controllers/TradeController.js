@@ -36,6 +36,26 @@ class TradeController {
     }
   }
 
+  importTrades() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/trades/current-week');
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          response.map(data => new Trade(new Date(data.data), data.quantidade, data.valor))
+            .forEach(trade => this._tradeList.add(trade));
+          this._message.text = 'Your trades were imported successfully.';
+        } else {
+          this._message.text = 'Failed to fetch current week trades.';
+        }
+      }
+    };
+
+    xhr.send();
+  }
+
   erase() {
     this._tradeList.empty();
     this._message = 'Trade list erased successfully';
