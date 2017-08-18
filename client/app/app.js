@@ -1,5 +1,7 @@
 const controller = new TradeController();
 
-document.querySelector('.form').addEventListener('submit', controller.add.bind(controller));
+const $ = document.querySelector.bind(document);
 
-document.querySelector('#delete-button').addEventListener('click', controller.erase.bind(controller));
+$('.form').addEventListener('submit', controller.add.bind(controller));
+$('#delete-button').addEventListener('click', controller.erase.bind(controller));
+$('#import-button').addEventListener('click', controller.importTrades.bind(controller));
