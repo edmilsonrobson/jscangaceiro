@@ -39,14 +39,36 @@ class TradeController {
   }
 
   importTrades() {
-    this._tradeService.getCurrentWeekTrades((error, trades) => {
-      if (error) {
+    this._tradeService.getTradesFromPeriod()
+      .then((trades) => {
+        const filteredTrades = trades.filter(newTrade =>
+          !this._tradeList.toArray().some(existingNegotiation =>
+            newTrade.equals(existingNegotiation)));
+        filteredTrades.forEach(trade => this._tradeList.add(trade));
+      })
+      .catch((error) => {
         this._message.text = error;
-      } else {
-        trades.forEach(trade => this._tradeList.add(trade));
-        this._message.text = 'Your trades were imported successfully.';
-      }
-    });
+      });
+
+    // this._tradeService.getCurrentWeekTrades()
+    //   .then((thisWeekTrades) => {
+    //     trades.push(...thisWeekTrades);
+    //     return this._tradeService.getLastWeekTrades();
+    //   }, (error) => {
+    //     this._message_text = error;
+    //   })
+    //   .then((lastWeekTrades) => {
+    //     trades.push(...lastWeekTrades);
+    //     return this._tradeService.getWeekBeforeTheLastTrades();
+    //   })
+    //   .then((weekBeforeLastTrades) => {
+    //     trades.push(...weekBeforeLastTrades);
+    //     trades.forEach(trade => this._tradeList.add(trade));
+    //     this._message.text = 'Trade list imported successfully';
+    //   })
+    //   .catch((error) => {
+    //     this._message.text = error;
+    //   });
   }
 
   erase() {

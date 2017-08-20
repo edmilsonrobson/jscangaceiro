@@ -29,5 +29,8 @@
       "browser": true,
       "node": true
     }
+  },
+  "dependencies": {
+    "bulma": "^0.5.1"
   }
 }

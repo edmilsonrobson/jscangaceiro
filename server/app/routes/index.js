@@ -7,7 +7,7 @@ module.exports  = function(app) {
     app.route('/trades/current-week')
         .get(api.listaSemana);
 
-    app.route('/trades/past-week')
+    app.route('/trades/last-week')
         .get(api.listaAnterior);
 
     app.route('/trades/week-before-the-last')
