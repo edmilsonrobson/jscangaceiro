@@ -1,8 +1,7 @@
 class Trade {
-
   constructor(_date, _quantity, _value) {
     Object.assign(this, { _quantity, _value });
-    this._date = new Date(_date.getTime());    
+    this._date = new Date(_date.getTime());
 
     Object.freeze(this);
   }
@@ -23,4 +22,7 @@ class Trade {
     return this._quantity * this._value;
   }
 
+  equals(trade) {
+    return JSON.stringify(this) === JSON.stringify(trade);
+  }
 }

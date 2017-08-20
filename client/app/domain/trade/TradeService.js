@@ -1,21 +1,55 @@
 class TradeService {
-  getCurrentWeekTrades(callback) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'trades/current-week');
 
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          const response = JSON.parse(xhr.responseText);
-          const trades = response.map(data =>
-            new Trade(new Date(data.data), data.quantidade, data.valor));
-          callback(null, trades);
-        } else {
-          callback('Failed to fetch current week trades.', null);
-        }
-      }
-    };
+  constructor() {
+    this._http = new HttpService();
+  }
 
-    xhr.send();
+  getCurrentWeekTrades() {
+    return this._http.get('trades/current-week')
+      .then((data) => {
+        const trades = data.map(item =>
+          new Trade(new Date(item.data), item.quantidade, item.valor));
+        return trades;
+      }, (error) => {
+        throw new Error('Failed to fetch current week trades');
+      });
+  }
+
+  getLastWeekTrades() {
+    return this._http.get('trades/last-week')
+      .then((data) => {
+        const trades = data.map(item =>
+          new Trade(new Date(item.data), item.quantidade, item.valor));
+        return trades;
+      }, (error) => {
+        throw new Error('Failed to fetch last week trades');
+      });
+  }
+
+  getWeekBeforeTheLastTrades() {
+    return this._http.get('trades/week-before-the-last')
+      .then((data) => {
+        const trades = data.map(item =>
+          new Trade(new Date(item.data), item.quantidade, item.valor));
+        return trades;
+      }, (error) => {
+        throw new Error('Failed to fetch trades from the week before the last.');
+      });
+  }
+
+  getTradesFromPeriod() {
+    return Promise.all([
+      this.getCurrentWeekTrades(),
+      this.getLastWeekTrades(),
+      this.getWeekBeforeTheLastTrades(),
+    ]).then(period =>
+      period.reduce((newArray, item) =>
+        newArray.concat(item), [])
+        .sort((a, b) =>
+          b.date.getTime() - a.date.getTime()))
+      .catch((error) => {
+        console.log(error);
+        throw new Error('Failed to fetch trades from period');
+      });
   }
 }
