@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Trades</title>
+    <link rel="stylesheet" href="css/bulma.css">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
 
@@ -30,14 +31,14 @@
             <input id="value" type="number" class="form-control"  min="0.01" step="0.01" value="0.0" required />
         </div>
 
-        <button class="btn btn-primary" type="submit">Insert</button>
+        <button class="button is-primary" type="submit">Insert</button>
     </form>
 
     <div class="text-center">
-        <button id="import-button" class="btn btn-primary text-center" type="button">
+        <button id="import-button" class="button is-primary text-center" type="button">
             Import Trades
         </button>
-        <button id="delete-button" class="btn btn-primary text-center" type="button">
+        <button id="delete-button" class="button is-primary text-center" type="button">
             Delete
         </button>
     </div>
@@ -61,8 +62,9 @@
 
 <script src="app/util/ApplicationException.js" charset="utf-8"></script>
 <script src="app/ui/converters/InvalidDateException.js" charset="utf-8"></script>
-
 <script src="app/domain/trade/TradeService.js" charset="utf-8"></script>
+
+<script src="app/util/HttpService.js" charset="utf-8"></script>
 
 <script src="app/app.js" charset="utf-8"></script>
 
